@@ -1,5 +1,5 @@
 Summary:	3DM2 Management Utility
-Summary(pl.UTF-8):   Narzędzie do zarządzania kontrolerami 3DM2
+Summary(pl.UTF-8):	Narzędzie do zarządzania kontrolerami 3DM2
 Name:		3DM2-9650SE
 Version:	9.4.0.1
 Release:	1
@@ -8,8 +8,8 @@ Group:		Development/Libraries
 Source0:	http://www.3ware.com/download/Escalade9650SE-Series/%{version}/3DM2-Linux-%{version}.tgz
 # NoSource0-md5:	9505131021bafae54aa6d935202ce8e2
 NoSource:	0
-Source1:	http://www.3ware.com/download/Escalade9650SE-Series/%{version}/%{version}_Release_Notes_Web.pdf
 # NoSource1-md5:	a1f1cf93813592ea3499735ee598e673
+Source1:	http://www.3ware.com/download/Escalade9650SE-Series/%{version}/%{version}_Release_Notes_Web.pdf
 NoSource:	1
 Source2:	3dm2-9650SE.init
 URL:		http://www.3ware.com/products/raid_management.asp
@@ -19,8 +19,8 @@ ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-3DM2 Management Utility for 3ware RAID controllers. It supports
-AMCC 3ware 9650SE controlers.
+3DM2 Management Utility for 3ware RAID controllers. It supports AMCC
+3ware 9650SE controlers.
 
 %description -l pl.UTF-8
 Narzędzie 3DM2 do zarządzania kontrolerami RAID 3ware. Obsługuje
@@ -64,9 +64,9 @@ Language 0
 Logger 0
 Refresh 5
 BGRate 3333333333333333
-MsgPath /usr/share/3dm2/msg
-imgPath /usr/share/3dm2
-Help /usr/share/3dm2
+MsgPath %{_datadir}/3dm2/msg
+imgPath %{_datadir}/3dm2
+Help %{_datadir}/3dm2
 OEM 0
 AutoLogout 0
 CommandLog 1
@@ -83,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del 3dm2
 	%service 3dm2 stop
-fi            
+fi
 
 %files
 %defattr(644,root,root,755)
