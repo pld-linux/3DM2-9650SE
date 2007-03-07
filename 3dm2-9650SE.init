@@ -1,0 +1,69 @@
+#!/bin/sh
+#
+# 3dm2:     	Starts the 3ware daemon
+#
+# Author:       Rafal Cygnarowski <pascalek@pld-linux.org>
+#
+# chkconfig:	345 40 60
+# description:	Start the 3dm2 application which logs the current state
+#             	of the 3ware DiskSwitch controller card, and then polls
+#		for state changes.
+#
+# processname:	3dm2
+# config:	/etc/3dm2/3dm2.conf
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+RETVAL=0
+
+# See how we were called.
+case "$1" in
+  start)
+  	if [ ! -f /var/lock/subsys/3dm2 ]; then
+	    msg_starting "3DM2 Utility"
+	    start-stop-daemon --start --quiet --exec /usr/sbin/3dm2
+	    RETVAL=$?
+	    if [ $RETVAL -eq 0 ]; then 
+		ok 
+		touch /var/lock/subsys/3dm2
+	    else
+		fail
+		RETVAL=1
+	    fi
+	else
+	    msg_already_running "3DM2 Utility"
+	fi
+	;;
+  stop)
+	if [ -f /var/lock/subsys/3dm2 ]; then
+	    msg_stopping "3DM2 Utility"
+	    start-stop-daemon --stop --quiet --exec /usr/sbin/3dm2 1> /dev/null
+	    RETVAL=$?
+	    if [ $RETVAL -eq 0 ]; then 
+		ok 
+		rm -f /var/lock/subsys/3dm2
+	    else
+		fail
+		RETVAL=1
+	    fi
+	else
+	    msg_not_running "3DM2 Utility"
+	fi
+	;;
+  status)
+	status 3dm2
+	RETVAL=$?
+	;;
+  restart)
+	$0 stop
+	sleep 2
+	$0 start
+	RETVAL=$?
+	;;
+  *)
+	echo "Usage: $0 {start|stop|status|restart}"
+	exit 1
+esac
+
+exit $RETVAL
