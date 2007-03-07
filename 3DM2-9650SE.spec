@@ -1,3 +1,4 @@
+# TODO: missing BR for %service
 Summary:	3DM2 Management Utility
 Summary(pl.UTF-8):	Narzędzie do zarządzania kontrolerami 3DM2
 Name:		3DM2-9650SE
