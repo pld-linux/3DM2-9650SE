@@ -46,7 +46,7 @@ install *_msg_en $RPM_BUILD_ROOT%{_datadir}/3dm2/msg
 install 3dm2.x86 $RPM_BUILD_ROOT%{_sbindir}/3dm2
 %endif
 %ifarch %{x8664}
-install 3dm2.x8664 $RPM_BUILD_ROOT%{_sbindir}/3dm2
+install 3dm2.x86_64 $RPM_BUILD_ROOT%{_sbindir}/3dm2
 %endif
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/3dm2
 
