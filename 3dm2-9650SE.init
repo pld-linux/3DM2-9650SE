@@ -17,53 +17,62 @@
 
 RETVAL=0
 
-# See how we were called.
-case "$1" in
-  start)
+start() {
   	if [ ! -f /var/lock/subsys/3dm2 ]; then
 	    msg_starting "3DM2 Utility"
 	    start-stop-daemon --start --quiet --exec /usr/sbin/3dm2
 	    RETVAL=$?
-	    if [ $RETVAL -eq 0 ]; then 
-		ok 
-		touch /var/lock/subsys/3dm2
+	    if [ $RETVAL -eq 0 ]; then
+			ok
+			touch /var/lock/subsys/3dm2
 	    else
-		fail
-		RETVAL=1
+			fail
+			RETVAL=1
 	    fi
 	else
 	    msg_already_running "3DM2 Utility"
 	fi
-	;;
-  stop)
+}
+
+stop() {
+	# FIXME: stop should NEVER fail with error code
 	if [ -f /var/lock/subsys/3dm2 ]; then
 	    msg_stopping "3DM2 Utility"
-	    start-stop-daemon --stop --quiet --exec /usr/sbin/3dm2 1> /dev/null
+		# FIXME: spec needs rc-scripts versioned dep for start-stop-daemon (see PLD-doc/BuildRequires.txt)
+	    start-stop-daemon --stop --quiet --exec /usr/sbin/3dm2 > /dev/null
 	    RETVAL=$?
-	    if [ $RETVAL -eq 0 ]; then 
-		ok 
-		rm -f /var/lock/subsys/3dm2
+	    if [ $RETVAL -eq 0 ]; then
+			ok
+			rm -f /var/lock/subsys/3dm2
 	    else
-		fail
-		RETVAL=1
+			fail
+			RETVAL=1
 	    fi
 	else
 	    msg_not_running "3DM2 Utility"
 	fi
+}
+
+# See how we were called.
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
 	;;
   status)
 	status 3dm2
 	RETVAL=$?
 	;;
   restart)
-	$0 stop
+	stop
 	sleep 2
-	$0 start
-	RETVAL=$?
+	start
 	;;
   *)
-	echo "Usage: $0 {start|stop|status|restart}"
-	exit 1
+	msg_usage "$0 {start|stop|status|restart}"
+	exit 3
 esac
 
 exit $RETVAL
