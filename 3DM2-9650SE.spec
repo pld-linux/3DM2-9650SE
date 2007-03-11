@@ -1,4 +1,3 @@
-# TODO: missing BR for %service
 Summary:	3DM2 Management Utility
 Summary(pl.UTF-8):	Narzędzie do zarządzania kontrolerami 3DM2
 Name:		3DM2-9650SE
@@ -14,6 +13,7 @@ Source1:	http://www.3ware.com/download/Escalade9650SE-Series/%{version}/%{versio
 NoSource:	1
 Source2:	3dm2-9650SE.init
 URL:		http://www.3ware.com/products/raid_management.asp
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
 ExclusiveArch:	%{ix86} %{x8664}
@@ -89,23 +89,8 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc version.3dm license.txt %{version}_Release_Notes_Web.pdf
-%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_sbindir}/3dm2
+%attr(754,root,root) /etc/rc.d/init.d/3dm2
 %dir %{_sysconfdir}/3dm2
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/3dm2/3dm2.conf
-%dir %{_datadir}/3dm2
-%dir %{_datadir}/3dm2/msg
-%dir %{_datadir}/3dm2/en
-%dir %{_datadir}/3dm2/en/css
-%dir %{_datadir}/3dm2/en/images
-%dir %{_datadir}/3dm2/en/scripts
-%{_datadir}/3dm2/msg/*msg*
-%{_datadir}/3dm2/en/*.html
-%{_datadir}/3dm2/en/*.gif
-%{_datadir}/3dm2/en/*.jpg
-%{_datadir}/3dm2/en/css/*.css
-%{_datadir}/3dm2/en/images/*.gif
-%{_datadir}/3dm2/en/images/*.png
-%{_datadir}/3dm2/en/images/*.jpg
-%{_datadir}/3dm2/en/images/*.JPG
-%{_datadir}/3dm2/en/scripts/*.js
-%attr(754,root,root) /etc/rc.d/init.d/3dm2
+%{_datadir}/3dm2
