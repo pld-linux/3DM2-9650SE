@@ -4,7 +4,7 @@ Name:		3DM2-9650SE
 Version:	9.4.0.1
 Release:	1
 License:	commercial
-Group:		Development/Libraries
+Group:		Applications/System
 Source0:	http://www.3ware.com/download/Escalade9650SE-Series/%{version}/3DM2-Linux-%{version}.tgz
 # NoSource0-md5:	9505131021bafae54aa6d935202ce8e2
 NoSource:	0
